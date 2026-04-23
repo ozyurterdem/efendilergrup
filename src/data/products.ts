@@ -579,16 +579,3 @@ export const totalSkuCount: number = products.length;
 /** Kategori meta verisi (slug ile). */
 export const getCategoryMeta = (key: ProductCategory) =>
   categories.find((c) => c.key === key);
-
-/** Kategori key ile tam meta verisi alır; `undefined` yerine default dönmez. */
-export const getCategoryByKey = (key: ProductCategory) =>
-  categories.find((c) => c.key === key);
-
-/** Verilen ürüne göre aynı kategorideki diğer N ürünü döndürür (detay sayfası için). */
-export const getRelatedProducts = (
-  product: Product,
-  limit: number = 3,
-): Product[] =>
-  products
-    .filter((p) => p.category === product.category && p.slug !== product.slug)
-    .slice(0, limit);

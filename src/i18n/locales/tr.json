@@ -142,53 +142,5 @@
       "Teklif Al",
       "Basın"
     ]
-  },
-  "catalog": {
-    "meta": {
-      "title": "Ürünlerimiz — Efendiler Grup",
-      "description": "21 SKU, 4 kategori — Pamuk, pamuk telefi, iplik telefi ve elyaf. Sertifikalı, izlenebilir, küresel sevkiyatlı."
-    },
-    "eyebrow": "Katalog",
-    "title": {
-      "line1": "Dört kategori,",
-      "line2_em": "yirmi bir ürün."
-    },
-    "breadcrumb": {
-      "home": "Ana Sayfa",
-      "products": "Ürünler"
-    },
-    "cta": {
-      "heading": "Aradığınızı bulamadınız mı?",
-      "sub": "Uzman satış ekibimiz size özel pamuk/elyaf tedariği hazırlar.",
-      "button": "Teklif talep et"
-    },
-    "view_product": "İncele",
-    "sku_label": "ürün",
-    "category_intros": {
-      "cotton": "Ham, organik (GOTS), linter ve özel pamuk sınıfları.",
-      "cotton-waste": "Tarak, harman ve temizleme prosesi çıktıları.",
-      "yarn-waste": "Ring üstübü, open-end ve ağartılmış çeşitler.",
-      "fiber-other": "Viscon, polyester elyaf ve tekstil kırpıntıları."
-    }
-  },
-  "detail": {
-    "breadcrumb": {
-      "home": "Ana Sayfa",
-      "products": "Ürünler"
-    },
-    "eyebrow": "Ürün",
-    "tech_heading": "Teknik Bilgi",
-    "features_heading": "Özellikler",
-    "related_heading": "İlgili Ürünler",
-    "cta": "Bu ürün için teklif al",
-    "back_to_catalog": "Tüm ürünlere dön",
-    "specs": {
-      "category": "Kategori",
-      "moq": "Min. Sipariş",
-      "incoterms": "Incoterms",
-      "certs": "Sertifika",
-      "slug": "Kod"
-    },
-    "not_specified": "Belirtilmemiş"
   }
 }
