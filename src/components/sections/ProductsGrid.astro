@@ -49,8 +49,8 @@ export interface Props {
 const { locale = 'tr', t } = Astro.props;
 
 const base = locale === 'tr' ? '' : `/${locale}`;
-const catalogueHref = `${base}/#urunler`;
-const catHref = (cat: string) => `${base}/#urunler-${cat}`;
+const catalogueHref = `${base}/urunler/`;
+const catHref = (cat: string) => `${base}/urunler/#cat-${cat}`;
 
 // Her kategorinin SKU sayısı — meta satırında ("5 ürün · Incoterms...") kullanılır.
 const counts = {

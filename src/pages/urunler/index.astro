@@ -1,0 +1,229 @@
+---
+/**
+ * Ürün Kataloğu — TR (/urunler/)
+ *
+ * Tüm 21 SKU, 4 kategori başlığı altında editorial bir grid.
+ * Her kategori section'ı `id="cat-{slug}"` taşır → Header/Footer/Hero linkleri
+ * buraya anchor ile düşer.
+ */
+import Layout from '~/layouts/Layout.astro';
+import Header from '~/components/Header.astro';
+import Footer from '~/components/Footer.astro';
+import { useTranslations, type Locale } from '~/i18n';
+import {
+  categories,
+  getProductsByCategory,
+  totalSkuCount,
+  type Product,
+  type ProductCategory,
+} from '~/data/products';
+
+const locale: Locale = 'tr';
+const t = useTranslations(locale);
+
+const base = '';
+
+// Kategori -> görsel class eşlemesi (ProductCard ile tutarlı)
+const imgByCategory: Record<ProductCategory, string> = {
+  'cotton': 'img-cat1',
+  'cotton-waste': 'img-cat2',
+  'yarn-waste': 'img-cat3',
+  'fiber-other': 'img-cat4',
+};
+
+const bgByCategory: Record<ProductCategory, string> = {
+  'cotton': 'bg-ink-900',
+  'cotton-waste': 'bg-forest-900',
+  'yarn-waste': 'bg-sky-900',
+  'fiber-other': 'bg-earth-700',
+};
+
+// Her kategori için hazırlanmış bölüm verisi
+const sections = categories.map((cat) => ({
+  key: cat.key,
+  name: cat.names[locale],
+  intro: t(`catalog.category_intros.${cat.key}`),
+  items: getProductsByCategory(cat.key),
+  img: imgByCategory[cat.key],
+  bg: bgByCategory[cat.key],
+}));
+
+// Kısa açıklama (kart için ilk 120 karakter)
+const truncate = (str: string, len = 120) =>
+  str.length <= len ? str : `${str.slice(0, len).trimEnd()}…`;
+
+const productHref = (p: Product) => `${base}/urunler/${p.slug}/`;
+---
+
+<Layout
+  title={t('catalog.meta.title')}
+  description={t('catalog.meta.description')}
+  locale={locale}
+>
+  <Header slot="nav" locale={locale} />
+
+  <!-- Hero / Başlık -->
+  <section class="py-24 md:py-32 bg-bone-50 border-b border-bone-200">
+    <div class="max-w-[1400px] mx-auto px-8">
+      <nav
+        class="text-xs text-ink-700 mb-10 flex items-center gap-2"
+        aria-label="Breadcrumb"
+      >
+        <a href={base === '' ? '/' : `${base}/`} class="hover:text-forest-800">
+          {t('catalog.breadcrumb.home')}
+        </a>
+        <span class="opacity-40">›</span>
+        <span class="text-ink-900">{t('catalog.breadcrumb.products')}</span>
+      </nav>
+
+      <div class="label-xs text-forest-700 mb-6">
+        {t('catalog.eyebrow')}
+      </div>
+      <h1 class="display-xl text-5xl md:text-7xl lg:text-8xl text-ink-900 max-w-5xl">
+        {t('catalog.title.line1')}{' '}
+        <span class="display-sub">{t('catalog.title.line2_em')}</span>
+      </h1>
+
+      <!-- Kategori özet şeridi -->
+      <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-px bg-bone-200">
+        {
+          sections.map((s, i) => (
+            <a
+              href={`#cat-${s.key}`}
+              class="bg-bone-50 p-6 hover:bg-bone-100 transition group"
+            >
+              <div class="label-xs text-forest-700 mb-2 num">
+                {String(i + 1).padStart(2, '0')}
+              </div>
+              <div class="font-serif text-lg text-ink-900 leading-snug mb-2">
+                {s.name}
+              </div>
+              <div class="text-xs text-ink-700">
+                <span class="num">{s.items.length}</span>{' '}
+                {t('catalog.sku_label')}
+              </div>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Katalog: kategori section'ları -->
+  {
+    sections.map((section, idx) => (
+      <section
+        id={`cat-${section.key}`}
+        class:list={[
+          'py-24 md:py-32 border-b border-bone-200 scroll-mt-20',
+          idx % 2 === 0 ? 'bg-white' : 'bg-bone-50',
+        ]}
+        aria-labelledby={`heading-${section.key}`}
+      >
+        <div class="max-w-[1400px] mx-auto px-8">
+          <!-- Section başlığı -->
+          <div class="grid md:grid-cols-12 gap-8 mb-16 items-end">
+            <div class="md:col-span-8">
+              <div class="label-xs text-forest-700 mb-4 num">
+                {String(idx + 1).padStart(2, '0')} — {section.name}
+              </div>
+              <h2
+                id={`heading-${section.key}`}
+                class="display-xl text-4xl md:text-5xl lg:text-6xl text-ink-900 mb-6"
+              >
+                {section.name}
+              </h2>
+              <p class="font-serif text-xl md:text-2xl text-ink-700 leading-snug font-light max-w-2xl">
+                {section.intro}
+              </p>
+            </div>
+            <div class="md:col-span-4 flex md:justify-end">
+              <div class="text-sm text-ink-700">
+                <span class="num text-ink-900 font-medium">
+                  {section.items.length}
+                </span>{' '}
+                {t('catalog.sku_label')}
+              </div>
+            </div>
+          </div>
+
+          <!-- Ürün grid -->
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {
+              section.items.map((p) => (
+                <a
+                  href={productHref(p)}
+                  class="pcard group block bg-bone-50 border border-bone-200 hover:border-forest-700 transition"
+                >
+                  <div
+                    class:list={[
+                      'relative overflow-hidden aspect-[4/3]',
+                      section.bg,
+                    ]}
+                  >
+                    <div
+                      class:list={[
+                        'absolute inset-0 pcard-img opacity-65 group-hover:opacity-80 transition-opacity',
+                        section.img,
+                      ]}
+                      aria-hidden="true"
+                    />
+                    <div
+                      class="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent"
+                      aria-hidden="true"
+                    />
+                    <div class="absolute bottom-0 left-0 right-0 p-5 text-bone-50">
+                      <div class="label-xs text-bone-100/70 mb-1">
+                        {section.name}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="p-6">
+                    <h3 class="font-serif text-xl text-ink-900 mb-3 leading-snug">
+                      {p.names[locale]}
+                    </h3>
+                    <p class="text-sm text-ink-700 leading-relaxed mb-5 line-clamp-3">
+                      {truncate(p.description[locale], 120)}
+                    </p>
+                    <span class="text-sm font-semibold text-forest-800 link-arrow">
+                      {t('catalog.view_product')}
+                    </span>
+                  </div>
+                </a>
+              ))
+            }
+          </div>
+        </div>
+      </section>
+    ))
+  }
+
+  <!-- CTA -->
+  <section class="bg-ink-900 text-bone-50 py-24 md:py-32">
+    <div class="max-w-[1400px] mx-auto px-8">
+      <div class="grid md:grid-cols-12 gap-8 items-end">
+        <div class="md:col-span-8">
+          <div class="label-xs text-bone-100/60 mb-6">
+            <span class="num">{totalSkuCount}</span> SKU · 4 {t('catalog.breadcrumb.products')}
+          </div>
+          <h2 class="display-xl text-4xl md:text-5xl lg:text-6xl mb-6">
+            {t('catalog.cta.heading')}
+          </h2>
+          <p class="font-serif text-xl text-bone-100/80 max-w-2xl leading-snug font-light">
+            {t('catalog.cta.sub')}
+          </p>
+        </div>
+        <div class="md:col-span-4 flex md:justify-end">
+          <a
+            href={`${base}/#teklif`}
+            class="inline-block bg-bone-50 text-ink-900 font-medium text-sm px-8 py-4 hover:bg-forest-600 hover:text-bone-50 transition"
+          >
+            {t('catalog.cta.button')}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer slot="footer" locale={locale} />
+</Layout>
