@@ -592,3 +592,46 @@ export const getRelatedProducts = (
   products
     .filter((p) => p.category === product.category && p.slug !== product.slug)
     .slice(0, limit);
+
+/* -------------------------------------------------------------------------- */
+/*  Ürün görselleri — her slug için benzersiz Pexels fotoğrafı                */
+/* -------------------------------------------------------------------------- */
+
+const pexelsUrl = (id: number) =>
+  `https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&w=1600`;
+
+/**
+ * 21 SKU için seçilmiş Pexels görselleri.
+ * Aynı kategoride bile farklı açılar (tarla / balya / makine / close-up).
+ */
+export const productImages: Record<string, string> = {
+  // --- Kategori 1: Pamuk ---
+  'ham-pamuk':                pexelsUrl(13924878), // yuvarlak balya, sarı plastik
+  'organik-pamuk':            pexelsUrl(34281523), // mavi gök + çiçekli pamuk bitkisi
+  'linter':                   pexelsUrl(6912940),  // pamuk çekirdeği
+  'penye-telefi':             pexelsUrl(14287148), // hasada hazır close-up
+  'avaryali-pamuk':           pexelsUrl(13924888), // hasat makinesi tarla
+  // --- Kategori 2: Pamuk Telefleri ---
+  'sapka-telefi':             pexelsUrl(6128992),  // pamuk tasnifçileri
+  'harman-hallac':            pexelsUrl(8246479),  // endüstriyel tekstil makinesi
+  'meydan-telefi':            pexelsUrl(31321002), // fabrika worker fabric stacks
+  'uluk':                     pexelsUrl(6168148),  // pamuk lifleri close-up
+  'temizlenmis-uluk':         pexelsUrl(3158023),  // temiz pamuk close-up
+  // --- Kategori 3: İplik Telefleri ---
+  'ring-ustubu':              pexelsUrl(8931791),  // loom workshop yarn balls
+  'hasilli-ustubu':           pexelsUrl(14252255), // stacked yarn rolls
+  'agartilmis-hidrofil':      pexelsUrl(745761),   // doğal cotton yarn
+  'agartilmis-penye-telefi':  pexelsUrl(31199526), // winding machine
+  'agartilmis-pamuk-telefi':  pexelsUrl(5467462),  // renkli yarn balls üstten
+  'rulo-eczane-pamugu':       pexelsUrl(31251599), // yarn rolls inspect
+  'open-end-ustubu':          pexelsUrl(31199528), // spinning mill worker
+  // --- Kategori 4: Elyaf & Diğer ---
+  'viscon-elyaf':             pexelsUrl(4006490),  // renk/doku yarn çeşitliliği
+  'polyester-elyaf':          pexelsUrl(5788367),  // basket yarn balls earthy
+  'denim-kirpintisi':         pexelsUrl(1482180),  // denim kumaş
+  'penye-kirpintisi':         pexelsUrl(10133274), // denim tekstil dokusu
+};
+
+/** Bir ürün için özel görsel URL'si. Kategori fallback component tarafında. */
+export const getProductImage = (slug: string): string | undefined =>
+  productImages[slug];

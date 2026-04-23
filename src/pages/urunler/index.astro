@@ -17,6 +17,7 @@ import { useTranslations, type Locale } from '~/i18n';
 import {
   categories,
   getProductsByCategory,
+  getProductImage,
   totalSkuCount,
   type Product,
   type ProductCategory,
@@ -24,7 +25,8 @@ import {
 
 const locale: Locale = 'tr';
 const t = useTranslations(locale);
-const base = locale === 'tr' ? '' : `/${locale}`;
+const basePaths = { tr: '', en: '/en', ru: '/ru' } as const;
+const base = basePaths[locale];
 
 const imgByCategory: Record<ProductCategory, string> = {
   'cotton': 'img-cat1',
@@ -87,7 +89,7 @@ const productHref = (p: Product) => `${base}/urunler/${p.slug}`;
       class="absolute top-8 left-8 md:left-12 z-20 text-xs text-bone-50/80 flex items-center gap-2"
       aria-label="Breadcrumb"
     >
-      <a href={base === '' ? '/' : `${base}`} class="hover:text-bone-50">
+      <a href={base || '/'} class="hover:text-bone-50">
         {t('catalog.breadcrumb.home')}
       </a>
       <span class="opacity-40">›</span>
@@ -204,6 +206,7 @@ const productHref = (p: Product) => `${base}/urunler/${p.slug}`;
             {section.items.map((p, idx) => {
               const isFirst = idx === 0 && section.items.length > 2;
               const certs = p.certifications ?? [];
+              const imgUrl = getProductImage(p.slug);
               return (
                 <a
                   href={productHref(p)}
@@ -216,12 +219,13 @@ const productHref = (p: Product) => `${base}/urunler/${p.slug}`;
                   ]}
                   aria-label={p.names[locale]}
                 >
-                  {/* Arkaplan görsel */}
+                  {/* Arkaplan görsel — ürüne özel Pexels, fallback kategori class */}
                   <div
                     class:list={[
                       'absolute inset-0 pcard-img opacity-60 group-hover:opacity-80 transition-opacity duration-500',
-                      section.img,
+                      !imgUrl && section.img,
                     ]}
+                    style={imgUrl ? `background: url('${imgUrl}') center/cover;` : undefined}
                     aria-hidden="true"
                   />
                   {/* Gradient overlay */}
