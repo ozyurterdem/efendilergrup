@@ -1,0 +1,67 @@
+---
+/**
+ * EditorialIntro.astro
+ *
+ * "Who we are" editorial intro — 5/6 split grid.
+ * Sol: eyebrow + display başlık ("A new generation of *cotton traders.*")
+ * Sağ: iki paragraf + "Our story" link.
+ *
+ * i18n anahtarları:
+ *   intro.eyebrow         → "Who we are"
+ *   intro.title.line1     → "A new generation of"
+ *   intro.title.line2_em  → "cotton traders."
+ *   intro.lead            → ana (büyük) paragraf
+ *   intro.body            → detay paragrafı
+ *   intro.cta.story       → "Our story"
+ */
+
+export interface Props {
+  /** Link prefix'i için locale. */
+  locale?: 'tr' | 'en' | 'ru';
+  /** i18n translator. */
+  t: any;
+}
+
+const { locale = 'tr', t } = Astro.props;
+
+const base = locale === 'tr' ? '' : `/${locale}`;
+const aboutHref = `${base}/#about`;
+---
+
+<section class="py-32 bg-bone-50" aria-labelledby="intro-heading">
+  <div class="max-w-[1400px] mx-auto px-8">
+    <div class="grid lg:grid-cols-12 gap-16">
+      <!-- Sol kolon: başlık (5) -->
+      <div class="lg:col-span-5">
+        <div class="label-xs text-forest-700 mb-6">
+          {t('intro.eyebrow')}
+        </div>
+        <h2
+          id="intro-heading"
+          class="display-xl text-5xl md:text-6xl text-ink-900 mb-8"
+        >
+          {t('intro.title.line1')}<br />
+          <span class="display-sub">{t('intro.title.line2_em')}</span>
+        </h2>
+      </div>
+
+      <!-- Sağ kolon: metin (6, col-start-7) -->
+      <div class="lg:col-span-6 lg:col-start-7 pt-4">
+        <p
+          class="font-serif text-2xl leading-snug text-ink-800 mb-8 font-light"
+        >
+          {t('intro.lead')}
+        </p>
+        <p class="text-ink-700 leading-relaxed mb-8">
+          {t('intro.body')}
+        </p>
+        <a
+          href={aboutHref}
+          class="text-sm font-semibold text-forest-800 link-arrow"
+        >
+          {t('intro.cta.story')}
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

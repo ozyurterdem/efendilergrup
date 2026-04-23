@@ -1,0 +1,146 @@
+{
+  "meta": {
+    "title": "Efendiler Grup — Mersin'den Dünyaya Sertifikalı Pamuk Tedariki",
+    "description": "Efendiler Grup, Mersin merkezli pamuk ve türev ürünleri tedarikçisi. 21 ürün, 14+ ülke, GOTS/OEKO-TEX sertifikalı, şeffaf izlenebilirlik."
+  },
+  "nav": {
+    "products": "Ürünler",
+    "sustainability": "Sürdürülebilirlik",
+    "about": "Hakkımızda",
+    "contact": "İletişim",
+    "quote": "Teklif Al"
+  },
+  "topbar": {
+    "location": "Mersin · Türkiye",
+    "email_label": "E-posta",
+    "phone_label": "Telefon"
+  },
+  "hero": {
+    "eyebrow": "Küresel Pamuk Tedariki · 2021'den beri",
+    "subtitle": "Sertifikalı pamuk, elyaf ve telef tedariki. Mersin'den 14+ ülkeye, tam şeffaflıkla.",
+    "scroll": "Kaydır",
+    "title": {
+      "line1": "Akdeniz'den",
+      "line2_em": "dünyaya",
+      "line3": "kesintisiz."
+    },
+    "glance": {
+      "heading": "Bir bakışta",
+      "countries": "Hedef ülke",
+      "skus": "Ürün çeşidi",
+      "categories": "Kategori",
+      "certs": "Sertifika"
+    },
+    "cta": {
+      "explore": "Ürünleri keşfet"
+    }
+  },
+  "trust": {
+    "heading": "Pamuk ticaretinde güven işareti"
+  },
+  "intro": {
+    "eyebrow": "Biz kimiz",
+    "lead": "Efendiler Grup, 2021 yılında Mersin'de kuruldu. Akdeniz'in en stratejik ticaret limanlarından birini merkez alarak, pamuk ve türev ürünlerinde küresel tedarik zincirleri kuruyoruz.",
+    "body": "21 ürün kategorisi, 14+ hedef ülke ve uluslararası sertifikalarla — Türki Cumhuriyetler'den Uzakdoğu'ya, AB'den ABD'ye uzanan bir tedarik ağı yönetiyoruz. Her balyada izlenebilirlik, her anlaşmada şeffaflık önceliğimiz.",
+    "title": {
+      "line1": "Yeni nesil bir",
+      "line2_em": "pamuk tüccarı."
+    },
+    "cta": {
+      "story": "Hikâyemiz"
+    }
+  },
+  "products": {
+    "eyebrow": "Ürünler",
+    "title": {
+      "line1": "Dört kategori,",
+      "line2_em": "yirmi bir ürün."
+    },
+    "cta": {
+      "catalogue": "Tüm kataloğu görüntüle"
+    },
+    "cat1": {
+      "label": "01 — Pamuk / Cotton",
+      "title": "Ham & Organik Pamuk",
+      "desc": "Ham, organik (GOTS), linter, penye telefi ve avaryalı — dünya pamuk pazarının temelini oluşturan kategoriler.",
+      "meta": "ürün · Incoterms EXW/FOB/CFR"
+    },
+    "cat2": {
+      "label": "02 — Pamuk Telefleri",
+      "title": "Pamuk Telefi",
+      "desc": "Şapka, harman hallaç, meydan, uluk ve temizlenmiş uluk."
+    },
+    "cat3": {
+      "label": "03 — İplik Telefleri",
+      "title": "İplik Telefi",
+      "desc": "Ring üstübü, haşıllı, ağartılmış hidrofil, open end."
+    },
+    "cat4": {
+      "label": "04 — Elyaf & Diğer",
+      "title": "Elyaf & Geri Dönüşüm",
+      "desc": "Viscon, polyester, denim ve penye kırpıntıları."
+    }
+  },
+  "numbers": {
+    "eyebrow": "Rakamlarla",
+    "headline_1": "Güvene dayalı,",
+    "headline_2": "tonlarla ölçülü.",
+    "countries": "Hedef ülke, 3 kıta",
+    "skus": "Ürün yelpazesi, 4 kategori",
+    "certs": "Uluslararası sertifika",
+    "response": "Teklif yanıt süremiz"
+  },
+  "sustain": {
+    "eyebrow": "Sürdürülebilirlik",
+    "line_1": "Şeffaf.",
+    "line_2": "İzlenebilir.",
+    "line_3": "Sorumlu.",
+    "card1_t": "Balya bazında izlenebilirlik",
+    "card1_d": "Her balya, hasattan sevkiyata kadar izlenebilir.",
+    "card2_t": "GOTS & OEKO-TEX sertifikalı",
+    "card2_d": "Organik ve zararlı madde standartlarında tam uyum.",
+    "card3_t": "Materials Matter'a hazır",
+    "card3_d": "Textile Exchange'in 2027 zorunlu standardına şimdiden hazırız."
+  },
+  "map": {
+    "eyebrow": "Küresel erişim",
+    "headline_1": "Mersin'den,",
+    "headline_2": "on dört ülkeye.",
+    "region1_t": "Türki Cumhuriyetler",
+    "region1_list": "Azerbaycan · Türkmenistan\nKazakistan · Özbekistan\nKırgızistan · Tacikistan",
+    "region2_t": "Asya Pasifik",
+    "region2_list": "Çin · Hindistan · Pakistan\nBangladeş · Vietnam\nTayland",
+    "region3_t": "AB · ABD · Ortadoğu",
+    "region3_list": "Almanya · İtalya · İspanya\nABD · BAE\nSuudi Arabistan"
+  },
+  "quote": {
+    "eyebrow": "Teklif talebi",
+    "headline_1": "Bize ihtiyacınızı",
+    "headline_2": "iletin.",
+    "intro": "24 saat içinde bağlayıcı olmayan bir fiyat ve lojistik planıyla dönüş yapıyoruz.",
+    "company": "Firma adı",
+    "email": "E-posta",
+    "country": "Ülke",
+    "category": "Kategori",
+    "notes": "Miktar & notlar",
+    "submit": "Teklif gönder"
+  },
+  "footer": {
+    "tagline": "Akdeniz'in pamuk tüccarı. Sertifikalı tedarik, şeffaf izlenebilirlik, küresel erişim.",
+    "products_heading": "Ürünler",
+    "company_heading": "Kurumsal",
+    "address_heading": "Adres",
+    "nav_products": [
+      "Pamuk",
+      "Pamuk Telefi",
+      "İplik Telefi",
+      "Elyaf & Geri Dönüşüm"
+    ],
+    "nav_company": [
+      "Hakkımızda",
+      "Sürdürülebilirlik",
+      "Teklif Al",
+      "Basın"
+    ]
+  }
+}

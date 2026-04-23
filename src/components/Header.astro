@@ -1,0 +1,95 @@
+---
+import { useTranslations, getAlternateLinks, type Locale } from '~/i18n';
+
+export interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+
+const pathname = Astro.url.pathname;
+const alternates = getAlternateLinks(pathname);
+
+const langs: { code: Locale; label: string; href: string }[] = [
+  { code: 'tr', label: 'TR', href: alternates.tr },
+  { code: 'en', label: 'EN', href: alternates.en },
+  { code: 'ru', label: 'RU', href: alternates.ru },
+];
+
+const base = locale === 'tr' ? '' : `/${locale}`;
+const href = (hash: string) => `${base}/${hash}`;
+---
+
+<div class="bg-ink-900 text-bone-50/70 text-xs">
+  <div class="max-w-[1400px] mx-auto px-8 py-2 flex justify-between items-center">
+    <div class="flex gap-6">
+      <span>📍 {t('topbar.location')}</span>
+      <span class="hidden md:inline">✉ info@efendilergrup.com</span>
+      <span class="hidden md:inline">📞 +90 XXX XXX XX XX</span>
+    </div>
+    <div class="flex gap-1" aria-label="Language switcher">
+      {
+        langs.map((lang, idx) => (
+          <>
+            <a
+              href={lang.href}
+              class:list={[
+                'px-2 py-0.5 transition',
+                lang.code === locale
+                  ? 'text-bone-50 font-medium'
+                  : 'hover:text-bone-50',
+              ]}
+              hreflang={lang.code}
+              aria-current={lang.code === locale ? 'true' : undefined}
+            >
+              {lang.label}
+            </a>
+            {idx < langs.length - 1 && <span class="opacity-40">·</span>}
+          </>
+        ))
+      }
+    </div>
+  </div>
+</div>
+
+<nav class="sticky top-0 z-40 bg-bone-50/95 backdrop-blur-md border-b border-bone-200">
+  <div class="max-w-[1400px] mx-auto px-8 py-5 flex items-center justify-between">
+    <a href={base === '' ? '/' : base} class="flex items-baseline gap-3">
+      <div class="font-serif text-2xl font-semibold text-ink-900 tracking-tight">
+        Efendiler Grup
+      </div>
+      <div class="label-xs text-forest-700 hidden md:block">
+        Cotton Traders · Est. 2021
+      </div>
+    </a>
+    <ul class="hidden lg:flex items-center gap-10 text-sm text-ink-700">
+      <li>
+        <a href={href('#urunler')} class="hover:text-forest-800 transition">
+          {t('nav.products')}
+        </a>
+      </li>
+      <li>
+        <a href={href('#surdurulebilirlik')} class="hover:text-forest-800 transition">
+          {t('nav.sustainability')}
+        </a>
+      </li>
+      <li>
+        <a href={href('#about')} class="hover:text-forest-800 transition">
+          {t('nav.about')}
+        </a>
+      </li>
+      <li>
+        <a href={href('#iletisim')} class="hover:text-forest-800 transition">
+          {t('nav.contact')}
+        </a>
+      </li>
+    </ul>
+    <a
+      href={href('#teklif')}
+      class="bg-ink-900 text-bone-50 text-sm font-medium px-6 py-3 hover:bg-forest-800 transition"
+    >
+      {t('nav.quote')}
+    </a>
+  </div>
+</nav>

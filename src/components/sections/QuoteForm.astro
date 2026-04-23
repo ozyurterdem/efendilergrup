@@ -1,0 +1,126 @@
+---
+/**
+ * QuoteForm section — "Tell us what you need."
+ *
+ * Ink-900 arka planlı teklif formu. 5 kolon gridde sol başlık + sağ form.
+ * Input'lar underline-only stil, border-b bone-100/30, focus'ta border-bone-50.
+ *
+ * FORM STATUS: Backend henüz yok. `action="/api/quote"` placeholder —
+ * ileride Astro API route veya 3rd-party (Formspree/Resend) ile bağlanacak.
+ * `novalidate` ile native browser UI minimale indirildi; required attribute
+ * mevcut, aksesibilite için label-input id eşleşmesi kuruldu.
+ *
+ * Select option'larındaki Türkçe/İngilizce çift başlık bilinçli — B2B
+ * alıcıların çoğu uluslararası, kategori referanslarını iki dilde görmek
+ * iletişimi kolaylaştırıyor. Locale prop'u şu an kullanılmıyor ama
+ * form_id / analytics / query-string kullanımı için interface'te tutuldu.
+ */
+import type { Locale } from '~/i18n';
+
+export interface Props {
+  t: (key: string) => string;
+  locale: Locale;
+}
+
+const { t, locale } = Astro.props;
+
+const formId = `quote-form-${locale}`;
+---
+
+<section id="teklif" class="bg-ink-900 text-bone-50 py-32">
+  <div class="max-w-[1200px] mx-auto px-8 grid lg:grid-cols-5 gap-16">
+    <div class="lg:col-span-2">
+      <div class="label-xs text-bone-100/60 mb-6">{t('quote.eyebrow')}</div>
+      <h2 class="display-xl text-5xl md:text-6xl mb-8">
+        {t('quote.headline_1')}<br />
+        <span class="display-sub">{t('quote.headline_2')}</span>
+      </h2>
+      <p class="font-serif text-lg text-bone-100/80 leading-snug font-light">
+        {t('quote.intro')}
+      </p>
+    </div>
+    <form
+      id={formId}
+      method="POST"
+      action="/api/quote"
+      novalidate
+      class="lg:col-span-3 space-y-6"
+    >
+      <input type="hidden" name="locale" value={locale} />
+      <div class="grid md:grid-cols-2 gap-6">
+        <div>
+          <label for={`${formId}-company`} class="label-xs text-bone-100/60 block mb-2">
+            {t('quote.company')}
+          </label>
+          <input
+            id={`${formId}-company`}
+            type="text"
+            name="company"
+            required
+            autocomplete="organization"
+            class="w-full bg-transparent border-b border-bone-100/30 py-3 text-bone-50 focus:outline-none focus:border-bone-50 transition"
+          />
+        </div>
+        <div>
+          <label for={`${formId}-email`} class="label-xs text-bone-100/60 block mb-2">
+            {t('quote.email')}
+          </label>
+          <input
+            id={`${formId}-email`}
+            type="email"
+            name="email"
+            required
+            autocomplete="email"
+            class="w-full bg-transparent border-b border-bone-100/30 py-3 text-bone-50 focus:outline-none focus:border-bone-50 transition"
+          />
+        </div>
+        <div>
+          <label for={`${formId}-country`} class="label-xs text-bone-100/60 block mb-2">
+            {t('quote.country')}
+          </label>
+          <input
+            id={`${formId}-country`}
+            type="text"
+            name="country"
+            required
+            autocomplete="country-name"
+            class="w-full bg-transparent border-b border-bone-100/30 py-3 text-bone-50 focus:outline-none focus:border-bone-50 transition"
+          />
+        </div>
+        <div>
+          <label for={`${formId}-category`} class="label-xs text-bone-100/60 block mb-2">
+            {t('quote.category')}
+          </label>
+          <select
+            id={`${formId}-category`}
+            name="category"
+            required
+            class="w-full bg-transparent border-b border-bone-100/30 py-3 text-bone-50 focus:outline-none focus:border-bone-50 transition"
+          >
+            <option value="cotton" class="text-ink-900">Pamuk / Cotton</option>
+            <option value="cotton-waste" class="text-ink-900">Pamuk Telefleri / Cotton Waste</option>
+            <option value="yarn-waste" class="text-ink-900">&#304;plik Telefleri / Yarn Waste</option>
+            <option value="fibers" class="text-ink-900">Elyaf / Fibers</option>
+          </select>
+        </div>
+      </div>
+      <div>
+        <label for={`${formId}-notes`} class="label-xs text-bone-100/60 block mb-2">
+          {t('quote.notes')}
+        </label>
+        <textarea
+          id={`${formId}-notes`}
+          name="notes"
+          rows="4"
+          class="w-full bg-transparent border-b border-bone-100/30 py-3 text-bone-50 focus:outline-none focus:border-bone-50 transition resize-none"
+        ></textarea>
+      </div>
+      <button
+        type="submit"
+        class="bg-bone-50 text-ink-900 font-medium px-8 py-4 hover:bg-forest-600 hover:text-bone-50 transition"
+      >
+        {t('quote.submit')} &rarr;
+      </button>
+    </form>
+  </div>
+</section>

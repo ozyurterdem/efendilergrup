@@ -1,0 +1,58 @@
+---
+/**
+ * Numbers section — "By the numbers"
+ *
+ * Forest-900 arka planlı editorial rakam bloğu. Absolute konumlu `img-numbers`
+ * ve forest-900/70 overlay ile texture efekti. 4 kolonlu büyük rakam gridi.
+ *
+ * Rakamlar `src/data/site.ts` > `site.stats` ile senkronize — kopya değer
+ * tutmamak için buradan okunuyor. Metinler i18n key'leriyle çözülüyor.
+ */
+import { site } from '~/data/site';
+
+export interface Props {
+  t: (key: string) => string;
+}
+
+const { t } = Astro.props;
+
+const stats = site.stats;
+---
+
+<section class="bg-forest-900 text-bone-50 py-32 relative overflow-hidden">
+  <div class="absolute inset-0 opacity-20">
+    <div class="absolute inset-0 img-numbers"></div>
+    <div class="absolute inset-0 bg-forest-900/70"></div>
+  </div>
+  <div class="max-w-[1400px] mx-auto px-8 relative z-10">
+    <div class="max-w-3xl mb-20">
+      <div class="label-xs text-bone-100/70 mb-6">{t('numbers.eyebrow')}</div>
+      <h2 class="display-xl text-5xl md:text-6xl">
+        {t('numbers.headline_1')}<br />
+        <span class="display-sub">{t('numbers.headline_2')}</span>
+      </h2>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 border-t border-bone-100/20 pt-12">
+      <div>
+        <div class="num font-serif text-7xl font-light mb-2">
+          {stats.countries}<span class="text-forest-600">+</span>
+        </div>
+        <div class="text-sm text-bone-100/70 leading-relaxed">{t('numbers.countries')}</div>
+      </div>
+      <div>
+        <div class="num font-serif text-7xl font-light mb-2">{stats.skus}</div>
+        <div class="text-sm text-bone-100/70 leading-relaxed">{t('numbers.skus')}</div>
+      </div>
+      <div>
+        <div class="num font-serif text-7xl font-light mb-2">{stats.certs}</div>
+        <div class="text-sm text-bone-100/70 leading-relaxed">{t('numbers.certs')}</div>
+      </div>
+      <div>
+        <div class="num font-serif text-7xl font-light mb-2">
+          {stats.responseHours}<span class="text-forest-600">h</span>
+        </div>
+        <div class="text-sm text-bone-100/70 leading-relaxed">{t('numbers.response')}</div>
+      </div>
+    </div>
+  </div>
+</section>

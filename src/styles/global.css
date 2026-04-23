@@ -1,0 +1,69 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink-900: #141818;
+  --color-ink-800: #1F2523;
+  --color-ink-700: #3A423F;
+
+  --color-bone-50:  #FAFAF6;
+  --color-bone-100: #F4F1E8;
+  --color-bone-200: #E8E2D1;
+  --color-bone-300: #CFC6AF;
+
+  --color-forest-900: #142A1D;
+  --color-forest-800: #1F3D2B;
+  --color-forest-700: #2D5740;
+  --color-forest-600: #3F7557;
+
+  --color-sky-900: #0E2233;
+  --color-sky-800: #1A3A56;
+  --color-sky-700: #2A5578;
+  --color-sky-500: #4A7FA7;
+
+  --color-earth-700: #7B5E3C;
+  --color-earth-500: #A68B68;
+
+  --font-serif: "Source Serif 4", Georgia, serif;
+  --font-sans:  "Inter", system-ui, sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-sans);
+  color: var(--color-ink-900);
+  background: var(--color-bone-50);
+  -webkit-font-smoothing: antialiased;
+}
+
+.font-serif { font-family: var(--font-serif); font-feature-settings: 'onum'; }
+
+.display-xl   { font-family: var(--font-serif); font-weight: 300; letter-spacing: -0.02em; line-height: 0.95; }
+.display-sub  { font-family: var(--font-serif); font-weight: 300; font-style: italic; letter-spacing: -0.01em; }
+.label-xs     { font-family: var(--font-sans); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 500; }
+
+.thin-rule { height: 1px; background: currentColor; opacity: 0.2; }
+.num { font-feature-settings: 'tnum'; letter-spacing: -0.02em; }
+
+.link-arrow::after { content: '→'; margin-left: 0.4em; transition: transform .25s ease; display: inline-block; }
+.link-arrow:hover::after { transform: translateX(4px); }
+
+@keyframes kb      { 0% { transform: scale(1.05); } 100% { transform: scale(1.12); } }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.kb            { animation: kb 20s ease-in-out infinite alternate; }
+.marquee-track { animation: marquee 45s linear infinite; }
+
+.pcard      { transition: transform .5s cubic-bezier(.2,.8,.2,1); }
+.pcard:hover { transform: translateY(-3px); }
+.pcard:hover .pcard-img { transform: scale(1.04); }
+.pcard-img  { transition: transform .8s cubic-bezier(.2,.8,.2,1); }
+
+/* Background image helpers — bağlamsal Pexels görselleri */
+.img-hero    { background: linear-gradient(180deg, rgba(20,24,24,0.35) 0%, rgba(20,24,24,0.15) 30%, rgba(20,24,24,0.65) 100%),
+                           url('https://images.pexels.com/photos/17307650/pexels-photo-17307650.jpeg?auto=compress&cs=tinysrgb&w=2400') center/cover; }
+.img-cat1    { background: url('https://images.pexels.com/photos/10398726/pexels-photo-10398726.jpeg?auto=compress&cs=tinysrgb&w=1600') center/cover; }
+.img-cat2    { background: url('https://images.pexels.com/photos/13924878/pexels-photo-13924878.jpeg?auto=compress&cs=tinysrgb&w=1600') center/cover; }
+.img-cat3    { background: url('https://images.pexels.com/photos/8931791/pexels-photo-8931791.jpeg?auto=compress&cs=tinysrgb&w=1600') center/cover; }
+.img-cat4    { background: url('https://images.pexels.com/photos/4006490/pexels-photo-4006490.jpeg?auto=compress&cs=tinysrgb&w=1600') center/cover; }
+.img-sustain { background: url('https://images.pexels.com/photos/34281523/pexels-photo-34281523.jpeg?auto=compress&cs=tinysrgb&w=1600') center/cover; }
+.img-numbers { background: url('https://images.pexels.com/photos/30608774/pexels-photo-30608774.jpeg?auto=compress&cs=tinysrgb&w=1600') center/cover; }
+.img-map     { background: url('https://images.pexels.com/photos/5568217/pexels-photo-5568217.jpeg?auto=compress&cs=tinysrgb&w=1600') center/cover; }

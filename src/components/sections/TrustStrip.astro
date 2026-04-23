@@ -1,0 +1,83 @@
+---
+/**
+ * TrustStrip.astro
+ *
+ * Güven şeridi — sertifika ve üyelik isimlerinin soldan sağa akan marquee
+ * animasyonu. Seamless loop için track iki kez render edilir (ikincisi
+ * `aria-hidden="true"`, ekran okuyucular için gizli).
+ *
+ * CSS: `marquee-track` (`global.css`) — 45s linear infinite.
+ *
+ * i18n anahtarı:
+ *   trust.heading → "Trusted across the cotton trade"
+ *
+ * Sertifikalar statik liste — görsel marka (brand-mark) olarak render edilir,
+ * çeviriye tabi değildir.
+ */
+
+export interface Props {
+  /** i18n translator. */
+  t: any;
+}
+
+const { t } = Astro.props;
+
+const items: string[] = [
+  'GOTS Certified',
+  'OEKO-TEX Standard 100',
+  'ISO 9001',
+  'ISO 14001',
+  'ICA Member',
+  'Textile Exchange',
+  'Akdeniz Tekstil Birliği',
+];
+---
+
+<section
+  class="bg-bone-100 border-y border-bone-200 py-8 overflow-hidden"
+  aria-labelledby="trust-heading"
+>
+  <div class="max-w-[1400px] mx-auto px-8">
+    <div id="trust-heading" class="label-xs text-ink-700 text-center mb-4">
+      {t('trust.heading')}
+    </div>
+  </div>
+
+  <div class="flex overflow-hidden">
+    <!-- Track 1 -->
+    <div
+      class="flex gap-16 marquee-track flex-shrink-0 px-8 items-center text-ink-700/40 font-serif text-xl"
+    >
+      {
+        items.map((item, i) => (
+          <>
+            <span class="whitespace-nowrap">{item}</span>
+            {i < items.length - 1 && (
+              <span class="opacity-30" aria-hidden="true">
+                ◆
+              </span>
+            )}
+          </>
+        ))
+      }
+      <!-- Track 1 ile Track 2 arasında da ayırıcı ◆ -->
+      <span class="opacity-30" aria-hidden="true">◆</span>
+    </div>
+
+    <!-- Track 2 (seamless loop için aynı içerik, aria-hidden) -->
+    <div
+      class="flex gap-16 marquee-track flex-shrink-0 px-8 items-center text-ink-700/40 font-serif text-xl"
+      aria-hidden="true"
+    >
+      {
+        items.map((item, i) => (
+          <>
+            <span class="whitespace-nowrap">{item}</span>
+            {i < items.length - 1 && <span class="opacity-30">◆</span>}
+          </>
+        ))
+      }
+      <span class="opacity-30">◆</span>
+    </div>
+  </div>
+</section>

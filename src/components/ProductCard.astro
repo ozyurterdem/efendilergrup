@@ -1,0 +1,97 @@
+---
+/**
+ * ProductCard.astro
+ *
+ * 21 SKU listeleme / filtreleme sayfalarında kullanılacak, tek ürünü temsil
+ * eden basit kart. İçinde: görsel alanı (placeholder gradient), kategori
+ * etiketi, ürün adı (yerel), kısa açıklama ve "İncele →" CTA.
+ *
+ * Props:
+ *   - `product`: tek bir `Product` kaydı
+ *   - `locale`: hangi dilde isim/açıklama gösterilecek
+ *
+ * CSS: `pcard`, `pcard-img` (hover zoom — ProductsGrid ile aynı davranış).
+ *
+ * Not: Ürün detay sayfası rotası henüz yazılmadı (Mac — /urunler/[slug]).
+ * `href` patterni: `${base}/urunler/${slug}` — TR prefixsiz, EN/RU `/en|/ru`.
+ */
+
+import type { Product, LocaleKey } from '~/data/products';
+import { categories } from '~/data/products';
+
+export interface Props {
+  product: Product;
+  locale?: LocaleKey;
+  /** Opsiyonel i18n translator — "İncele" CTA için. */
+  t?: any;
+}
+
+const { product, locale = 'tr', t } = Astro.props;
+
+const base = locale === 'tr' ? '' : `/${locale}`;
+const detailHref = `${base}/urunler/${product.slug}`;
+
+const name = product.names[locale] ?? product.names.tr;
+const description = product.description[locale] ?? product.description.tr;
+
+const categoryMeta = categories.find((c) => c.key === product.category);
+const categoryLabel =
+  categoryMeta?.names[locale] ?? categoryMeta?.names.tr ?? product.category;
+
+// Kategori -> kart arka plan sınıf eşleme (grid'deki renk kodlarıyla tutarlı)
+const bgByCategory: Record<Product['category'], string> = {
+  'cotton': 'bg-ink-900',
+  'cotton-waste': 'bg-forest-900',
+  'yarn-waste': 'bg-sky-900',
+  'fiber-other': 'bg-earth-700',
+};
+const imgByCategory: Record<Product['category'], string> = {
+  'cotton': 'img-cat1',
+  'cotton-waste': 'img-cat2',
+  'yarn-waste': 'img-cat3',
+  'fiber-other': 'img-cat4',
+};
+
+const cardBg = bgByCategory[product.category];
+const cardImg = imgByCategory[product.category];
+
+// CTA metni — t yoksa yerel varsayılan
+const ctaFallback: Record<LocaleKey, string> = {
+  tr: 'İncele',
+  en: 'View details',
+  ru: 'Подробнее',
+};
+const ctaText = (t && t('product.cta.details')) || ctaFallback[locale];
+---
+
+<article class="pcard group block bg-bone-50 border border-bone-200">
+  <a href={detailHref} class="block">
+    <!-- Görsel alanı -->
+    <div class={`relative overflow-hidden ${cardBg} aspect-[4/3]`}>
+      <div
+        class={`absolute inset-0 pcard-img ${cardImg} opacity-65 group-hover:opacity-80 transition-opacity`}
+        aria-hidden="true"
+      >
+      </div>
+      <div
+        class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"
+        aria-hidden="true"
+      >
+      </div>
+    </div>
+
+    <!-- Metin bölümü -->
+    <div class="p-6">
+      <div class="label-xs text-forest-700 mb-2">{categoryLabel}</div>
+      <h3 class="font-serif text-xl text-ink-900 mb-2 leading-snug">
+        {name}
+      </h3>
+      <p class="text-sm text-ink-700 leading-relaxed mb-4 line-clamp-3">
+        {description}
+      </p>
+      <span class="text-sm font-medium text-forest-800 link-arrow">
+        {ctaText}
+      </span>
+    </div>
+  </a>
+</article>

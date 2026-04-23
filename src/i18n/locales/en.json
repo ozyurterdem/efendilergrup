@@ -1,0 +1,146 @@
+{
+  "meta": {
+    "title": "Efendiler Grup — Certified Cotton Sourcing from Mersin to the World",
+    "description": "Efendiler Grup is a Mersin-based supplier of cotton, fibers and yarn waste. 21 SKUs, 14+ countries, GOTS/OEKO-TEX certified, end-to-end traceability."
+  },
+  "nav": {
+    "products": "Products",
+    "sustainability": "Sustainability",
+    "about": "About",
+    "contact": "Contact",
+    "quote": "Request a quote"
+  },
+  "topbar": {
+    "location": "Mersin · Türkiye",
+    "email_label": "Email",
+    "phone_label": "Phone"
+  },
+  "hero": {
+    "eyebrow": "Global Cotton Sourcing · Since 2021",
+    "subtitle": "Certified cotton, fibers and waste supply. From Mersin to 14+ countries, with full transparency.",
+    "scroll": "Scroll",
+    "title": {
+      "line1": "From the",
+      "line2_em": "Mediterranean",
+      "line3": "to the world."
+    },
+    "glance": {
+      "heading": "At a glance",
+      "countries": "Countries served",
+      "skus": "Product SKUs",
+      "categories": "Categories",
+      "certs": "Certifications"
+    },
+    "cta": {
+      "explore": "Explore products"
+    }
+  },
+  "trust": {
+    "heading": "Trusted across the cotton trade"
+  },
+  "intro": {
+    "eyebrow": "Who we are",
+    "lead": "Efendiler Grup was founded in Mersin in 2021. Anchored in one of the Mediterranean's most strategic trading ports, we build global supply chains in cotton and its derivatives.",
+    "body": "With 21 product categories, 14+ destination markets, and internationally recognised certifications, we operate a network that stretches from the Turkic States to the Far East, and from the EU to the United States. Traceability on every bale. Transparency on every deal.",
+    "title": {
+      "line1": "A new generation of",
+      "line2_em": "cotton traders."
+    },
+    "cta": {
+      "story": "Our story"
+    }
+  },
+  "products": {
+    "eyebrow": "Products",
+    "title": {
+      "line1": "Four categories,",
+      "line2_em": "twenty-one SKUs."
+    },
+    "cta": {
+      "catalogue": "View full catalogue"
+    },
+    "cat1": {
+      "label": "01 — Cotton",
+      "title": "Raw & Organic Cotton",
+      "desc": "Raw, organic (GOTS), linter, combed waste and damaged lots — the categories that form the backbone of the global cotton market.",
+      "meta": "SKUs · Incoterms EXW/FOB/CFR"
+    },
+    "cat2": {
+      "label": "02 — Cotton Waste",
+      "title": "Cotton Waste",
+      "desc": "Sweeper, blow-room, floor, fly and cleaned fly."
+    },
+    "cat3": {
+      "label": "03 — Yarn Waste",
+      "title": "Yarn Waste",
+      "desc": "Ring soft waste, sized, bleached hydrophilic, open-end."
+    },
+    "cat4": {
+      "label": "04 — Fibers & Other",
+      "title": "Fibers & Recycling",
+      "desc": "Viscose, polyester, denim and combed cuttings."
+    }
+  },
+  "numbers": {
+    "eyebrow": "By the numbers",
+    "headline_1": "Built on trust,",
+    "headline_2": "measured in tons.",
+    "countries": "Destination countries, 3 continents",
+    "skus": "SKUs across 4 categories",
+    "certs": "International certifications",
+    "response": "Quote response time"
+  },
+  "sustain": {
+    "eyebrow": "Sustainability",
+    "line_1": "Transparent.",
+    "line_2": "Traceable.",
+    "line_3": "Responsible.",
+    "card1_t": "Batch-level traceability",
+    "card1_d": "Every bale is traceable from harvest to shipment.",
+    "card2_t": "GOTS & OEKO-TEX certified",
+    "card2_d": "Full compliance with organic and hazardous-substance standards.",
+    "card3_t": "Materials Matter ready",
+    "card3_d": "Prepared today for Textile Exchange's 2027 mandatory standard."
+  },
+  "map": {
+    "eyebrow": "Global reach",
+    "headline_1": "From Mersin,",
+    "headline_2": "to fourteen nations.",
+    "region1_t": "Turkic States",
+    "region1_list": "Azerbaijan · Turkmenistan\nKazakhstan · Uzbekistan\nKyrgyzstan · Tajikistan",
+    "region2_t": "Asia Pacific",
+    "region2_list": "China · India · Pakistan\nBangladesh · Vietnam\nThailand",
+    "region3_t": "EU · USA · Middle East",
+    "region3_list": "Germany · Italy · Spain\nUnited States · UAE\nSaudi Arabia"
+  },
+  "quote": {
+    "eyebrow": "Quote request",
+    "headline_1": "Tell us",
+    "headline_2": "what you need.",
+    "intro": "We respond within 24 hours with a non-binding price and logistics plan.",
+    "company": "Company name",
+    "email": "Email",
+    "country": "Country",
+    "category": "Category",
+    "notes": "Volume & notes",
+    "submit": "Submit request"
+  },
+  "footer": {
+    "tagline": "Mediterranean cotton traders. Certified supply, transparent traceability, global reach.",
+    "products_heading": "Products",
+    "company_heading": "Company",
+    "address_heading": "Address",
+    "nav_products": [
+      "Cotton",
+      "Cotton Waste",
+      "Yarn Waste",
+      "Fibers & Recycling"
+    ],
+    "nav_company": [
+      "About",
+      "Sustainability",
+      "Request a quote",
+      "Press"
+    ]
+  }
+}

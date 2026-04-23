@@ -1,0 +1,31 @@
+---
+import Layout from '~/layouts/Layout.astro';
+import Header from '~/components/Header.astro';
+import Footer from '~/components/Footer.astro';
+import Hero from '~/components/sections/Hero.astro';
+import TrustStrip from '~/components/sections/TrustStrip.astro';
+import EditorialIntro from '~/components/sections/EditorialIntro.astro';
+import ProductsGrid from '~/components/sections/ProductsGrid.astro';
+import Numbers from '~/components/sections/Numbers.astro';
+import Sustainability from '~/components/sections/Sustainability.astro';
+import GlobalMap from '~/components/sections/GlobalMap.astro';
+import QuoteForm from '~/components/sections/QuoteForm.astro';
+import { useTranslations, type Locale } from '~/i18n';
+import { products } from '~/data/products';
+
+const locale: Locale = 'en';
+const t = useTranslations(locale);
+---
+
+<Layout title={t('meta.title')} description={t('meta.description')} locale={locale}>
+  <Header slot="nav" locale={locale} />
+  <Hero locale={locale} t={t} />
+  <TrustStrip t={t} />
+  <EditorialIntro t={t} />
+  <ProductsGrid t={t} products={products} />
+  <Numbers t={t} />
+  <Sustainability t={t} />
+  <GlobalMap t={t} />
+  <QuoteForm t={t} locale={locale} />
+  <Footer slot="footer" locale={locale} />
+</Layout>
