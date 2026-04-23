@@ -47,9 +47,12 @@ body {
 .link-arrow::after { content: '→'; margin-left: 0.4em; transition: transform .25s ease; display: inline-block; }
 .link-arrow:hover::after { transform: translateX(4px); }
 
-@keyframes kb      { 0% { transform: scale(1.05); } 100% { transform: scale(1.12); } }
+@keyframes kb {
+  0%   { transform: scale(1.0) translate(0, 0); }
+  100% { transform: scale(1.15) translate(-2%, -2%); }
+}
 @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-.kb            { animation: kb 20s ease-in-out infinite alternate; }
+.kb            { animation: kb 24s ease-in-out infinite alternate; will-change: transform; }
 .marquee-track { animation: marquee 45s linear infinite; }
 
 .pcard      { transition: transform .5s cubic-bezier(.2,.8,.2,1); }
@@ -57,9 +60,66 @@ body {
 .pcard:hover .pcard-img { transform: scale(1.04); }
 .pcard-img  { transition: transform .8s cubic-bezier(.2,.8,.2,1); }
 
+/* === Hero motion === */
+
+/* Karartma gradient — img-hero'dan ayrı katman */
+.hero-scrim {
+  background:
+    linear-gradient(180deg, rgba(20,24,24,0.25) 0%, rgba(20,24,24,0.05) 30%, rgba(20,24,24,0.80) 100%),
+    radial-gradient(1200px 600px at 78% 22%, rgba(255,255,255,0.05), transparent 60%);
+  pointer-events: none;
+}
+
+/* Staged reveal — hero başlık/alt/CTA için */
+@keyframes reveal-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.reveal    { opacity: 0; animation: reveal-up .9s cubic-bezier(.2,.8,.2,1) both; }
+.reveal-1  { animation-delay: .15s; }
+.reveal-2  { animation-delay: .4s; }
+.reveal-3  { animation-delay: .7s; }
+
+/* Floating cotton dots */
+@keyframes float-y {
+  0%, 100% { transform: translate(0, 0); }
+  50%      { transform: translate(10px, -18px); }
+}
+.float-slow { animation: float-y 9s  ease-in-out infinite; }
+.float-med  { animation: float-y 6s  ease-in-out infinite; }
+.float-fast { animation: float-y 4.2s ease-in-out infinite; }
+
+.cotton-dot {
+  position: absolute;
+  border-radius: 9999px;
+  pointer-events: none;
+  filter: blur(40px);
+  z-index: 1;
+}
+.dot-1 { top: 14%;  left: 8%;   width: 180px; height: 180px; background: rgba(255,255,255,0.14); }
+.dot-2 { top: 38%;  right: 14%; width: 260px; height: 260px; background: rgba(212,215,180,0.18); }
+.dot-3 { bottom: 22%; left: 32%; width: 140px; height: 140px; background: rgba(255,255,255,0.11); }
+.dot-4 { top: 62%;  right: 30%; width: 200px; height: 200px; background: rgba(180,200,160,0.13); }
+
+/* Scroll hint bounce */
+@keyframes scroll-bounce {
+  0%, 100% { transform: translate(-50%, 0); opacity: 0.7; }
+  50%      { transform: translate(-50%, 8px); opacity: 1; }
+}
+.scroll-bounce { animation: scroll-bounce 2.2s ease-in-out infinite; }
+
+/* Motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .kb, .reveal, .float-slow, .float-med, .float-fast,
+  .scroll-bounce, .marquee-track, .pcard, .pcard-img {
+    animation: none !important;
+    transition: none !important;
+  }
+  .reveal { opacity: 1; transform: none; }
+}
+
 /* Background image helpers — bağlamsal Pexels görselleri */
-.img-hero    { background: linear-gradient(180deg, rgba(20,24,24,0.35) 0%, rgba(20,24,24,0.15) 30%, rgba(20,24,24,0.65) 100%),
-                           url('https://images.pexels.com/photos/17307650/pexels-photo-17307650.jpeg?auto=compress&cs=tinysrgb&w=2400') center/cover; }
+.img-hero    { background: url('https://images.pexels.com/photos/17307650/pexels-photo-17307650.jpeg?auto=compress&cs=tinysrgb&w=2400') center/cover; }
 .img-cat1    { background: url('https://images.pexels.com/photos/10398726/pexels-photo-10398726.jpeg?auto=compress&cs=tinysrgb&w=1600') center/cover; }
 .img-cat2    { background: url('https://images.pexels.com/photos/13924878/pexels-photo-13924878.jpeg?auto=compress&cs=tinysrgb&w=1600') center/cover; }
 .img-cat3    { background: url('https://images.pexels.com/photos/8931791/pexels-photo-8931791.jpeg?auto=compress&cs=tinysrgb&w=1600') center/cover; }

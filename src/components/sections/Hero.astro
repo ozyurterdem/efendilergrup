@@ -1,142 +1,96 @@
 ---
 /**
- * Hero.astro
+ * Hero.astro — editorial full-bleed hero
  *
- * Full-bleed editorial hero — pamuk tarlası arka planı, ken-burns animasyonu,
- * 8/4 grid (sol metin, sağ "At a glance" kartı) ve scroll hint ile kapanır.
+ * Full-bleed pamuk tarlası, güçlü ken-burns parallax, fade-in staged
+ * animasyon, floating cotton dots, bouncing scroll hint.
+ * "At a glance" kartı kaldırıldı — odak tek bir güçlü başlıkta.
  *
- * CSS sınıfları `src/styles/global.css` içinde tanımlıdır: `img-hero`,
- * `display-xl`, `display-sub`, `label-xs`, `thin-rule`, `link-arrow`, `kb`, `num`.
- *
- * i18n anahtarları (Agent A tarafından sağlanır):
- *   hero.eyebrow          → "Global Cotton Sourcing · Since 2021"
- *   hero.title.line1      → "From the"
- *   hero.title.line2_em   → "Mediterranean"     (italic/display-sub)
- *   hero.title.line3      → "to the world."
- *   hero.subtitle         → 2 satır açıklama
- *   hero.glance.heading   → "At a glance"
- *   hero.glance.countries → "Countries served"
- *   hero.glance.skus      → "Product SKUs"
- *   hero.glance.categories→ "Categories"
- *   hero.glance.certs     → "Certifications"
- *   hero.cta.explore      → "Explore products"
- *   hero.scroll           → "Scroll"
+ * CSS sınıfları `src/styles/global.css` içinde:
+ *   img-hero, kb, display-xl, display-sub, label-xs, link-arrow,
+ *   reveal, reveal-1, reveal-2, reveal-3, float-slow, float-med,
+ *   float-fast, scroll-bounce
  */
 
-import { totalSkuCount, categories } from '~/data/products';
-
 export interface Props {
-  /** Sayfa yerel ayarı — `tr` | `en` | `ru`. Link prefix'i için kullanılır. */
   locale: 'tr' | 'en' | 'ru';
-  /** i18n translator fonksiyonu — anahtar alır, dize döndürür. */
   t: any;
 }
 
 const { locale, t } = Astro.props;
 
-// TR varsayılan (prefixsiz), diğer diller `/en` veya `/ru` ile başlar.
 const base = locale === 'tr' ? '' : `/${locale}`;
 const productsHref = `${base}/#urunler`;
-
-// At-a-glance sayıları — products.ts'ten türetilir, manuel senkron yok.
-const countriesServed = '14+';
-const categoryCount = categories.length;
-const certCount = 4;
+const quoteHref = `${base}/#teklif`;
 ---
 
 <section
-  class="img-hero relative min-h-[92vh] flex items-end overflow-hidden"
+  class="hero-section relative min-h-[100vh] flex items-end overflow-hidden"
   aria-labelledby="hero-heading"
 >
-  <!-- Ken-burns overlay: aynı görselin yavaşça scale eden kopyası -->
-  <div class="absolute inset-0 img-hero kb opacity-0" aria-hidden="true"></div>
+  <!-- Arka plan — sabit -->
+  <div class="absolute inset-0 img-hero" aria-hidden="true"></div>
 
+  <!-- Arka plan — ken-burns yavaş zoom (üstte, opacity ile kendinden geçiyor) -->
+  <div class="absolute inset-0 img-hero kb" aria-hidden="true"></div>
+
+  <!-- Karartma gradient -->
+  <div class="absolute inset-0 hero-scrim" aria-hidden="true"></div>
+
+  <!-- Floating cotton dots (hareket için) -->
+  <div class="cotton-dot dot-1 float-slow" aria-hidden="true"></div>
+  <div class="cotton-dot dot-2 float-med"  aria-hidden="true"></div>
+  <div class="cotton-dot dot-3 float-fast" aria-hidden="true"></div>
+  <div class="cotton-dot dot-4 float-med"  aria-hidden="true"></div>
+
+  <!-- İçerik -->
   <div class="relative z-10 w-full">
-    <div class="max-w-[1400px] mx-auto px-8 pb-20 pt-40">
-      <div class="grid lg:grid-cols-12 gap-8 items-end">
-        <!-- Sol: metin (8 kolon) -->
-        <div class="lg:col-span-8 text-bone-50">
-          <div class="label-xs text-bone-100/80 mb-6">
-            {t('hero.eyebrow')}
-          </div>
-          <h1
-            id="hero-heading"
-            class="display-xl text-[clamp(3rem,9vw,8rem)] mb-8"
-          >
-            {t('hero.title.line1')}<br />
-            <span class="display-sub">{t('hero.title.line2_em')}</span><br />
-            {t('hero.title.line3')}
-          </h1>
-          <p
-            class="font-serif text-xl md:text-2xl text-bone-100/90 max-w-xl leading-snug font-light"
-          >
-            {t('hero.subtitle')}
-          </p>
+    <div class="max-w-[1400px] mx-auto px-8 pb-24 md:pb-32 pt-40">
+      <div class="max-w-5xl">
+        <div class="reveal reveal-1 label-xs text-bone-100/80 mb-6">
+          {t('hero.eyebrow')}
         </div>
 
-        <!-- Sağ: "At a glance" kartı (4 kolon) -->
-        <aside class="lg:col-span-4 flex lg:justify-end">
-          <div class="bg-bone-50 p-8 max-w-sm w-full">
-            <div class="label-xs text-forest-700 mb-3">
-              {t('hero.glance.heading')}
-            </div>
-            <dl class="space-y-4">
-              <div class="flex justify-between items-baseline">
-                <dt class="text-sm text-ink-700">
-                  {t('hero.glance.countries')}
-                </dt>
-                <dd class="num font-serif text-3xl text-ink-900">
-                  {countriesServed}
-                </dd>
-              </div>
-              <div class="thin-rule text-bone-300"></div>
+        <h1
+          id="hero-heading"
+          class="reveal reveal-2 display-xl text-bone-50 text-[clamp(3rem,10vw,9.5rem)] mb-10"
+        >
+          {t('hero.title.line1')}<br />
+          <span class="display-sub">{t('hero.title.line2_em')}</span><br />
+          {t('hero.title.line3')}
+        </h1>
 
-              <div class="flex justify-between items-baseline">
-                <dt class="text-sm text-ink-700">
-                  {t('hero.glance.skus')}
-                </dt>
-                <dd class="num font-serif text-3xl text-ink-900">
-                  {totalSkuCount}
-                </dd>
-              </div>
-              <div class="thin-rule text-bone-300"></div>
+        <p class="reveal reveal-3 font-serif text-xl md:text-2xl text-bone-100/90 max-w-2xl leading-snug font-light mb-10">
+          {t('hero.subtitle')}
+        </p>
 
-              <div class="flex justify-between items-baseline">
-                <dt class="text-sm text-ink-700">
-                  {t('hero.glance.categories')}
-                </dt>
-                <dd class="num font-serif text-3xl text-ink-900">
-                  {categoryCount}
-                </dd>
-              </div>
-              <div class="thin-rule text-bone-300"></div>
-
-              <div class="flex justify-between items-baseline">
-                <dt class="text-sm text-ink-700">
-                  {t('hero.glance.certs')}
-                </dt>
-                <dd class="num font-serif text-3xl text-ink-900">
-                  {certCount}
-                </dd>
-              </div>
-            </dl>
-            <a
-              href={productsHref}
-              class="mt-6 inline-block text-sm font-medium text-forest-800 link-arrow"
-            >
-              {t('hero.cta.explore')}
-            </a>
-          </div>
-        </aside>
+        <div class="reveal reveal-3 flex flex-wrap items-center gap-4">
+          <a
+            href={productsHref}
+            class="group inline-flex items-center gap-3 bg-bone-50 text-ink-900 font-medium px-7 py-4 hover:bg-forest-600 hover:text-bone-50 transition-all duration-300"
+          >
+            <span>{t('hero.cta.explore')}</span>
+            <span class="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span>
+          </a>
+          <a
+            href={quoteHref}
+            class="inline-flex items-center gap-3 border border-bone-50/40 text-bone-50 font-medium px-7 py-4 hover:bg-bone-50/10 hover:border-bone-50 transition-all duration-300"
+          >
+            <span>{t('nav.quote')}</span>
+          </a>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- Scroll hint: ekranın alt ortası -->
+  <!-- Scroll hint — zıplar -->
   <div
-    class="absolute bottom-8 left-1/2 -translate-x-1/2 text-bone-50/60 text-xs label-xs z-10"
+    class="absolute bottom-10 left-1/2 -translate-x-1/2 text-bone-50/70 z-10 scroll-bounce"
     aria-hidden="true"
   >
-    ↓ {t('hero.scroll')}
+    <div class="flex flex-col items-center gap-2">
+      <span class="label-xs">{t('hero.scroll')}</span>
+      <span class="inline-block w-[1px] h-8 bg-bone-50/50"></span>
+    </div>
   </div>
 </section>
