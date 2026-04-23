@@ -142,5 +142,53 @@
       "Request a quote",
       "Press"
     ]
+  },
+  "catalog": {
+    "meta": {
+      "title": "Our Products — Efendiler Grup",
+      "description": "21 SKUs across 4 categories — cotton, cotton waste, yarn waste and fibers. Certified, traceable, shipped worldwide."
+    },
+    "eyebrow": "Catalogue",
+    "title": {
+      "line1": "Four categories,",
+      "line2_em": "twenty-one SKUs."
+    },
+    "breadcrumb": {
+      "home": "Home",
+      "products": "Products"
+    },
+    "cta": {
+      "heading": "Couldn't find what you need?",
+      "sub": "Our sales team can tailor a cotton or fiber supply plan to your specification.",
+      "button": "Request a quote"
+    },
+    "view_product": "View details",
+    "sku_label": "SKUs",
+    "category_intros": {
+      "cotton": "Raw, organic (GOTS), linter and specialty cotton grades.",
+      "cotton-waste": "Outputs from carding, blending and cleaning lines.",
+      "yarn-waste": "Ring soft waste, open-end and bleached variants.",
+      "fiber-other": "Viscose, polyester fibers and textile cuttings."
+    }
+  },
+  "detail": {
+    "breadcrumb": {
+      "home": "Home",
+      "products": "Products"
+    },
+    "eyebrow": "Product",
+    "tech_heading": "Technical Info",
+    "features_heading": "Features",
+    "related_heading": "Related Products",
+    "cta": "Request a quote for this product",
+    "back_to_catalog": "Back to catalogue",
+    "specs": {
+      "category": "Category",
+      "moq": "Min. Order",
+      "incoterms": "Incoterms",
+      "certs": "Certifications",
+      "slug": "Code"
+    },
+    "not_specified": "Not specified"
   }
 }

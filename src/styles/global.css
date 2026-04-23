@@ -65,9 +65,18 @@ body {
 /* Karartma gradient — img-hero'dan ayrı katman */
 .hero-scrim {
   background:
-    linear-gradient(180deg, rgba(20,24,24,0.25) 0%, rgba(20,24,24,0.05) 30%, rgba(20,24,24,0.80) 100%),
-    radial-gradient(1200px 600px at 78% 22%, rgba(255,255,255,0.05), transparent 60%);
+    linear-gradient(180deg,
+      rgba(20,24,24,0.55) 0%,
+      rgba(20,24,24,0.40) 35%,
+      rgba(20,24,24,0.70) 70%,
+      rgba(20,24,24,0.92) 100%),
+    radial-gradient(900px 500px at 20% 70%, rgba(20,24,24,0.35), transparent 70%);
   pointer-events: none;
+}
+
+/* Hero metin okunabilirlik — hafif drop-shadow */
+.hero-text {
+  text-shadow: 0 2px 20px rgba(20,24,24,0.45), 0 1px 3px rgba(20,24,24,0.35);
 }
 
 /* Staged reveal — hero başlık/alt/CTA için */

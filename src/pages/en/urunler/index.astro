@@ -1,0 +1,335 @@
+---
+/**
+ * Ürün Kataloğu — TR (/urunler)
+ *
+ * Zengin, görsel-baskın tasarım:
+ *  - Full-bleed hero (70vh) + breadcrumb overlay + büyük başlık
+ *  - Sticky kategori navigasyon (sayfa içi, anchor)
+ *  - Her kategori için ayrı section (alternate bg) — büyük başlık + asimetrik
+ *    grid (ilk ürün büyük kart, diğerleri 3-col)
+ *  - Her kartta görsel baskın, hover'da scale + "İncele" overlay
+ *  - CTA şeridi + footer
+ */
+import Layout from '~/layouts/Layout.astro';
+import Header from '~/components/Header.astro';
+import Footer from '~/components/Footer.astro';
+import { useTranslations, type Locale } from '~/i18n';
+import {
+  categories,
+  getProductsByCategory,
+  totalSkuCount,
+  type Product,
+  type ProductCategory,
+} from '~/data/products';
+
+const locale: Locale = 'en';
+const t = useTranslations(locale);
+const base = locale === 'tr' ? '' : `/${locale}`;
+
+const imgByCategory: Record<ProductCategory, string> = {
+  'cotton': 'img-cat1',
+  'cotton-waste': 'img-cat2',
+  'yarn-waste': 'img-cat3',
+  'fiber-other': 'img-cat4',
+};
+
+const bgByCategory: Record<ProductCategory, string> = {
+  'cotton': 'bg-ink-900',
+  'cotton-waste': 'bg-forest-900',
+  'yarn-waste': 'bg-sky-900',
+  'fiber-other': 'bg-earth-700',
+};
+
+const sections = categories.map((cat, i) => ({
+  index: i + 1,
+  key: cat.key,
+  name: cat.names[locale],
+  intro: t(`catalog.category_intros.${cat.key}`),
+  items: getProductsByCategory(cat.key),
+  img: imgByCategory[cat.key],
+  bg: bgByCategory[cat.key],
+}));
+
+const truncate = (s: string, n = 110) =>
+  s.length <= n ? s : `${s.slice(0, n).trimEnd()}…`;
+const productHref = (p: Product) => `${base}/urunler/${p.slug}`;
+---
+
+<Layout
+  title={t('catalog.meta.title')}
+  description={t('catalog.meta.description')}
+  locale={locale}
+>
+  <Header slot="nav" locale={locale} />
+
+  <!-- HERO: cinematic pamuk tarlası + dinamik katmanlar -->
+  <section class="relative min-h-[78vh] flex items-end overflow-hidden">
+    <!-- Arka plan — sabit -->
+    <div class="absolute inset-0 img-cat1" aria-hidden="true"></div>
+    <!-- Ken-burns yavaş zoom -->
+    <div class="absolute inset-0 img-cat1 kb" aria-hidden="true"></div>
+    <!-- Karartma gradient -->
+    <div
+      class="absolute inset-0"
+      style="background: linear-gradient(180deg, rgba(20,24,24,0.55) 0%, rgba(20,24,24,0.30) 40%, rgba(20,24,24,0.88) 100%);"
+      aria-hidden="true"
+    >
+    </div>
+
+    <!-- Floating cotton dots (hareket için) -->
+    <div class="cotton-dot dot-1 float-slow" aria-hidden="true"></div>
+    <div class="cotton-dot dot-2 float-med"  aria-hidden="true"></div>
+    <div class="cotton-dot dot-3 float-fast" aria-hidden="true"></div>
+    <div class="cotton-dot dot-4 float-med"  aria-hidden="true"></div>
+
+    <!-- Breadcrumb (top) -->
+    <nav
+      class="absolute top-8 left-8 md:left-12 z-20 text-xs text-bone-50/80 flex items-center gap-2"
+      aria-label="Breadcrumb"
+    >
+      <a href={base === '' ? '/' : `${base}`} class="hover:text-bone-50">
+        {t('catalog.breadcrumb.home')}
+      </a>
+      <span class="opacity-40">›</span>
+      <span class="text-bone-50">{t('catalog.breadcrumb.products')}</span>
+    </nav>
+
+    <!-- Başlık alanı (alt) -->
+    <div class="relative z-10 w-full">
+      <div class="max-w-[1400px] mx-auto px-8 pb-20 md:pb-28 pt-32">
+        <div class="reveal reveal-1 label-xs text-bone-100 hero-text mb-6">
+          {t('catalog.eyebrow')}
+        </div>
+        <h1
+          class="reveal reveal-2 display-xl hero-text text-bone-50 text-[clamp(2.8rem,8vw,7.5rem)] mb-10 max-w-5xl"
+        >
+          {t('catalog.title.line1')}<br />
+          <span class="display-sub">{t('catalog.title.line2_em')}</span>
+        </h1>
+        <p
+          class="reveal reveal-3 font-serif text-xl md:text-2xl text-bone-100 hero-text max-w-xl leading-snug font-light"
+        >
+          {t('catalog.meta.description')}
+        </p>
+      </div>
+    </div>
+
+    <!-- Scroll hint — zıplar -->
+    <div
+      class="absolute bottom-6 left-1/2 -translate-x-1/2 text-bone-50/70 z-10 scroll-bounce"
+      aria-hidden="true"
+    >
+      <div class="flex flex-col items-center gap-2">
+        <span class="label-xs">{t('hero.scroll')}</span>
+        <span class="inline-block w-[1px] h-8 bg-bone-50/50"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- STICKY CATEGORY NAV -->
+  <nav
+    class="sticky top-[73px] z-30 bg-bone-50/95 backdrop-blur-md border-b border-bone-200"
+    aria-label="Kategori navigasyonu"
+  >
+    <div class="max-w-[1400px] mx-auto px-8 overflow-x-auto">
+      <ul class="flex gap-8 py-5 text-sm text-ink-700 whitespace-nowrap">
+        {
+          sections.map((s) => (
+            <li>
+              <a
+                href={`#cat-${s.key}`}
+                class="hover:text-forest-800 transition flex items-center gap-2 py-1"
+              >
+                <span class="label-xs text-forest-700 num">
+                  {String(s.index).padStart(2, '0')}
+                </span>
+                <span class="font-medium">{s.name}</span>
+                <span class="text-ink-700/50 num">· {s.items.length}</span>
+              </a>
+            </li>
+          ))
+        }
+        <li class="ml-auto">
+          <a
+            href={`${base}/#teklif`}
+            class="text-sm font-semibold text-forest-800 link-arrow"
+          >
+            {t('catalog.cta.button')}
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- KATEGORİ SECTIONS -->
+  {
+    sections.map((section) => (
+      <section
+        id={`cat-${section.key}`}
+        class:list={[
+          'py-20 md:py-28 scroll-mt-32',
+          section.index % 2 === 0 ? 'bg-bone-50' : 'bg-white',
+        ]}
+        aria-labelledby={`heading-${section.key}`}
+      >
+        <div class="max-w-[1400px] mx-auto px-8">
+          {/* Bölüm başlığı: büyük, editorial */}
+          <div class="grid md:grid-cols-12 gap-8 mb-14 items-end">
+            <div class="md:col-span-8">
+              <div class="label-xs text-forest-700 mb-5 num">
+                {String(section.index).padStart(2, '0')} / 04
+              </div>
+              <h2
+                id={`heading-${section.key}`}
+                class="display-xl text-5xl md:text-6xl lg:text-7xl text-ink-900 mb-5"
+              >
+                {section.name}
+              </h2>
+              <p class="font-serif text-xl md:text-2xl text-ink-700 leading-snug font-light max-w-3xl">
+                {section.intro}
+              </p>
+            </div>
+            <div class="md:col-span-4 flex md:justify-end md:items-end">
+              <div class="text-xs text-ink-700/70 uppercase tracking-wider flex items-baseline gap-3">
+                <span class="num font-serif text-4xl text-ink-900 font-light">
+                  {section.items.length}
+                </span>
+                <span>{t('catalog.sku_label')}</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Ürün grid — asimetrik: ilk ürün büyük */}
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {section.items.map((p, idx) => {
+              const isFirst = idx === 0 && section.items.length > 2;
+              const certs = p.certifications ?? [];
+              return (
+                <a
+                  href={productHref(p)}
+                  class:list={[
+                    'pcard group relative overflow-hidden block',
+                    isFirst
+                      ? 'md:col-span-2 lg:col-span-2 lg:row-span-2 aspect-[4/3] lg:aspect-auto'
+                      : 'aspect-[4/3]',
+                    section.bg,
+                  ]}
+                  aria-label={p.names[locale]}
+                >
+                  {/* Arkaplan görsel */}
+                  <div
+                    class:list={[
+                      'absolute inset-0 pcard-img opacity-60 group-hover:opacity-80 transition-opacity duration-500',
+                      section.img,
+                    ]}
+                    aria-hidden="true"
+                  />
+                  {/* Gradient overlay */}
+                  <div
+                    class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent group-hover:from-black/95 transition-all duration-500"
+                    aria-hidden="true"
+                  />
+
+                  {/* Üst: kategori rozeti + sertifika rozetleri */}
+                  <div class="absolute top-5 left-5 right-5 flex items-start justify-between z-10">
+                    <div class="label-xs bg-bone-50/15 backdrop-blur-sm border border-bone-50/20 text-bone-50 px-3 py-1.5">
+                      {section.name}
+                    </div>
+                    {certs.length > 0 && (
+                      <div class="flex flex-wrap justify-end gap-1.5">
+                        {certs.slice(0, 2).map((c) => (
+                          <span class="text-[10px] uppercase tracking-wider bg-forest-600/90 text-bone-50 px-2 py-1 font-medium">
+                            {c}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Alt: başlık + açıklama + hover CTA */}
+                  <div
+                    class:list={[
+                      'absolute left-0 right-0 bottom-0 z-10 text-bone-50',
+                      isFirst ? 'p-8 md:p-10' : 'p-6',
+                    ]}
+                  >
+                    <h3
+                      class:list={[
+                        'font-serif font-light mb-3 leading-tight',
+                        isFirst
+                          ? 'text-4xl md:text-5xl lg:text-6xl'
+                          : 'text-2xl md:text-3xl',
+                      ]}
+                    >
+                      {p.names[locale]}
+                    </h3>
+                    <p
+                      class:list={[
+                        'text-bone-100/80 font-light leading-relaxed mb-5',
+                        isFirst ? 'text-base md:text-lg max-w-xl' : 'text-sm',
+                      ]}
+                    >
+                      {truncate(p.description[locale], isFirst ? 160 : 100)}
+                    </p>
+                    <div class="flex items-center justify-between gap-4">
+                      <div class="flex flex-wrap gap-3 text-[11px] text-bone-100/70 uppercase tracking-wider">
+                        {p.moq && <span>MOQ · {p.moq.replace(/^Min\s*/, '')}</span>}
+                        {p.incoterms && p.incoterms.length > 0 && (
+                          <span class="hidden md:inline">
+                            {p.incoterms.slice(0, 3).join(' · ')}
+                          </span>
+                        )}
+                      </div>
+                      <span class="text-sm font-medium text-bone-50 flex items-center gap-2 opacity-80 group-hover:opacity-100 transition">
+                        {t('catalog.view_product')}
+                        <span class="transition-transform duration-300 group-hover:translate-x-1">
+                          →
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                </a>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+    ))
+  }
+
+  <!-- CTA BAND -->
+  <section class="bg-ink-900 text-bone-50 py-24 md:py-32 relative overflow-hidden">
+    <div class="absolute inset-0 img-numbers opacity-20" aria-hidden="true"></div>
+    <div
+      class="absolute inset-0 bg-gradient-to-t from-ink-900 via-ink-900/90 to-ink-900/70"
+      aria-hidden="true"
+    >
+    </div>
+    <div class="max-w-[1400px] mx-auto px-8 relative z-10">
+      <div class="grid md:grid-cols-12 gap-10 items-end">
+        <div class="md:col-span-8">
+          <div class="label-xs text-bone-100/60 mb-6">
+            <span class="num">{totalSkuCount}</span> · 4 {t('catalog.breadcrumb.products')}
+          </div>
+          <h2 class="display-xl text-4xl md:text-5xl lg:text-6xl mb-6">
+            {t('catalog.cta.heading')}
+          </h2>
+          <p class="font-serif text-xl text-bone-100/80 max-w-2xl leading-snug font-light">
+            {t('catalog.cta.sub')}
+          </p>
+        </div>
+        <div class="md:col-span-4 flex md:justify-end">
+          <a
+            href={`${base}/#teklif`}
+            class="inline-flex items-center gap-3 bg-bone-50 text-ink-900 font-medium px-8 py-4 hover:bg-forest-600 hover:text-bone-50 transition"
+          >
+            <span>{t('catalog.cta.button')}</span>
+            <span>→</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer slot="footer" locale={locale} />
+</Layout>
