@@ -55,13 +55,14 @@ const href = (hash: string) => `${base}/${hash}`;
 
 <nav class="sticky top-0 z-40 bg-bone-50/95 backdrop-blur-md border-b border-bone-200">
   <div class="max-w-[1400px] mx-auto px-8 py-5 flex items-center justify-between">
-    <a href={base === '' ? '/' : base} class="flex items-baseline gap-3">
-      <div class="font-serif text-2xl font-semibold text-ink-900 tracking-tight">
-        Efendiler Grup
-      </div>
-      <div class="label-xs text-forest-700 hidden md:block">
-        Cotton Traders · Est. 2021
-      </div>
+    <a href={base === '' ? '/' : base} class="inline-flex items-center" aria-label="Efendiler Grup">
+      <img
+        src="/logo-mark.svg"
+        alt="Efendiler Group Cotton"
+        width="240"
+        height="80"
+        class="h-16 md:h-20 w-auto"
+      />
     </a>
     <ul class="hidden lg:flex items-center gap-10 text-sm text-ink-700">
       <li>
