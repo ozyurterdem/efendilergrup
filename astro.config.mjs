@@ -4,7 +4,7 @@ import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   site: 'https://efendilergrup.com',
-  trailingSlash: 'never',
+  trailingSlash: 'always',
   output: 'static',
   i18n: {
     defaultLocale: 'tr',

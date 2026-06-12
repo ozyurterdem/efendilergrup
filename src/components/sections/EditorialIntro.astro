@@ -15,6 +15,8 @@
  *   intro.cta.story       → "Our story"
  */
 
+import { localizedHref } from '~/i18n/utils';
+
 export interface Props {
   /** Link prefix'i için locale. */
   locale?: 'tr' | 'en' | 'ru';
@@ -24,8 +26,7 @@ export interface Props {
 
 const { locale = 'tr', t } = Astro.props;
 
-const base = locale === 'tr' ? '' : `/${locale}`;
-const aboutHref = `${base}/#about`;
+const aboutHref = localizedHref(locale, '#about');
 ---
 
 <section class="py-32 bg-bone-50" aria-labelledby="intro-heading">

@@ -12,6 +12,8 @@
  *   float-fast, scroll-bounce
  */
 
+import { localizedHref } from '~/i18n/utils';
+
 export interface Props {
   locale: 'tr' | 'en' | 'ru';
   t: any;
@@ -19,9 +21,8 @@ export interface Props {
 
 const { locale, t } = Astro.props;
 
-const base = locale === 'tr' ? '' : `/${locale}`;
-const productsHref = `${base}/#urunler`;
-const quoteHref = `${base}/#teklif`;
+const productsHref = localizedHref(locale, '#urunler');
+const quoteHref = localizedHref(locale, '#teklif');
 ---
 
 <section

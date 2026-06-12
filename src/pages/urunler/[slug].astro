@@ -14,6 +14,7 @@ import Layout from '~/layouts/Layout.astro';
 import Header from '~/components/Header.astro';
 import Footer from '~/components/Footer.astro';
 import { useTranslations, type Locale } from '~/i18n';
+import { localizedHref } from '~/i18n/utils';
 import {
   products,
   getCategoryByKey,
@@ -37,8 +38,7 @@ interface Props {
 const { product } = Astro.props;
 const locale: Locale = 'tr';
 const t = useTranslations(locale);
-const basePaths = { tr: '', en: '/en', ru: '/ru' } as const;
-const base = basePaths[locale];
+const href = (path: string) => localizedHref(locale, path);
 
 const category = getCategoryByKey(product.category);
 const related = getRelatedProducts(product, 3);
@@ -119,16 +119,16 @@ const specs = [
       class="absolute top-8 left-8 md:left-12 z-20 text-xs text-bone-50/80 flex flex-wrap items-center gap-2"
       aria-label="Breadcrumb"
     >
-      <a href={base || '/'} class="hover:text-bone-50">
+      <a href={href('')} class="hover:text-bone-50">
         {t('detail.breadcrumb.home')}
       </a>
       <span class="opacity-40">›</span>
-      <a href={`${base}/urunler`} class="hover:text-bone-50">
+      <a href={href('urunler')} class="hover:text-bone-50">
         {t('detail.breadcrumb.products')}
       </a>
       <span class="opacity-40">›</span>
       <a
-        href={`${base}/urunler#cat-${product.category}`}
+        href={href(`urunler#cat-${product.category}`)}
         class="hover:text-bone-50"
       >
         {categoryName}
@@ -158,14 +158,14 @@ const specs = [
           </p>
           <div class="reveal reveal-3 flex flex-wrap items-center gap-4">
             <a
-              href={`${base}/#teklif?product=${product.slug}`}
+              href={href(`#teklif?product=${product.slug}`)}
               class="inline-flex items-center gap-3 bg-bone-50 text-ink-900 font-medium px-8 py-4 hover:bg-forest-600 hover:text-bone-50 transition"
             >
               <span>{t('detail.cta')}</span>
               <span>→</span>
             </a>
             <a
-              href={`${base}/urunler`}
+              href={href('urunler')}
               class="inline-flex items-center gap-3 border border-bone-50/40 text-bone-50 font-medium px-8 py-4 hover:bg-bone-50/10 hover:border-bone-50 transition"
             >
               <span>←</span>
@@ -250,7 +250,7 @@ const specs = [
               ))}
             </dl>
             <a
-              href={`${base}/#teklif?product=${product.slug}`}
+              href={href(`#teklif?product=${product.slug}`)}
               class="mt-8 inline-flex items-center justify-center gap-3 w-full bg-ink-900 text-bone-50 font-medium px-6 py-4 hover:bg-forest-800 transition"
             >
               <span>{t('detail.cta')}</span>
@@ -276,7 +276,7 @@ const specs = [
             </h2>
           </div>
           <a
-            href={`${base}/urunler#cat-${product.category}`}
+            href={href(`urunler#cat-${product.category}`)}
             class="text-sm font-semibold text-forest-800 link-arrow"
           >
             {t('products.cta.catalogue')}
@@ -287,7 +287,7 @@ const specs = [
             const rImg = getProductImage(r.slug);
             return (
             <a
-              href={`${base}/urunler/${r.slug}`}
+              href={href(`urunler/${r.slug}`)}
               class:list={[
                 'pcard group relative overflow-hidden aspect-[4/3]',
                 relatedBg[r.category],

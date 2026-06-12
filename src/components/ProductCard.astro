@@ -18,6 +18,7 @@
 
 import type { Product, LocaleKey } from '~/data/products';
 import { categories } from '~/data/products';
+import { localizedHref } from '~/i18n/utils';
 
 export interface Props {
   product: Product;
@@ -28,8 +29,7 @@ export interface Props {
 
 const { product, locale = 'tr', t } = Astro.props;
 
-const base = locale === 'tr' ? '' : `/${locale}`;
-const detailHref = `${base}/urunler/${product.slug}`;
+const detailHref = localizedHref(locale, `urunler/${product.slug}`);
 
 const name = product.names[locale] ?? product.names.tr;
 const description = product.description[locale] ?? product.description.tr;

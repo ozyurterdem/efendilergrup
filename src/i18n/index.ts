@@ -67,7 +67,8 @@ export function getLocaleFromURL(url: URL): Locale {
 
 /**
  * Aktif path'in her üç dildeki karşılığını üretir. Dil prefix'i varsa
- * soyar, sonra hedef dile göre yeniden üretir.
+ * soyar, sonra hedef dile göre yeniden üretir. Çıktı her zaman
+ * slash'lıdır (`trailingSlash: 'always'` 4-katman tutarlığı için).
  */
 export function getAlternateLinks(pathname: string): {
   tr: string;
@@ -78,11 +79,11 @@ export function getAlternateLinks(pathname: string): {
   const first = segments[0];
   const hasLocalePrefix = first === 'en' || first === 'ru';
   const rest = hasLocalePrefix ? segments.slice(1) : segments;
-  const suffix = rest.length > 0 ? `/${rest.join('/')}` : '/';
+  const suffix = rest.length > 0 ? `/${rest.join('/')}/` : '/';
 
   return {
-    tr: suffix === '/' ? '/' : suffix,
-    en: suffix === '/' ? '/en' : `/en${suffix}`,
-    ru: suffix === '/' ? '/ru' : `/ru${suffix}`,
+    tr: suffix,
+    en: suffix === '/' ? '/en/' : `/en${suffix}`,
+    ru: suffix === '/' ? '/ru/' : `/ru${suffix}`,
   };
 }

@@ -7,3 +7,6 @@ dist/
 *.log
 .vscode/
 .idea/
+
+# AGENTS.md global Undercover ignore'undan muaf
+!AGENTS.md

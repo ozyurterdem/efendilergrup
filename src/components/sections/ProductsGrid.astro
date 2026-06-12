@@ -36,6 +36,7 @@
 
 import type { Product } from '~/data/products';
 import { getCategoryCount } from '~/data/products';
+import { localizedHref } from '~/i18n/utils';
 
 export interface Props {
   /** Link prefix'i için locale. */
@@ -48,9 +49,8 @@ export interface Props {
 
 const { locale = 'tr', t } = Astro.props;
 
-const base = locale === 'tr' ? '' : `/${locale}`;
-const catalogueHref = `${base}/urunler`;
-const catHref = (cat: string) => `${base}/urunler#cat-${cat}`;
+const catalogueHref = localizedHref(locale, 'urunler');
+const catHref = (cat: string) => localizedHref(locale, `urunler#cat-${cat}`);
 
 // Her kategorinin SKU sayısı — meta satırında ("5 ürün · Incoterms...") kullanılır.
 const counts = {

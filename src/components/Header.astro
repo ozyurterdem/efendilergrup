@@ -1,5 +1,6 @@
 ---
 import { useTranslations, getAlternateLinks, type Locale } from '~/i18n';
+import { localizedHref } from '~/i18n/utils';
 
 export interface Props {
   locale: Locale;
@@ -17,8 +18,8 @@ const langs: { code: Locale; label: string; href: string }[] = [
   { code: 'ru', label: 'RU', href: alternates.ru },
 ];
 
-const base = locale === 'tr' ? '' : `/${locale}`;
-const href = (hash: string) => `${base}/${hash}`;
+// Slash garantili href üretici (locale prefix + path/anchor).
+const href = (path: string) => localizedHref(locale, path);
 ---
 
 <div class="bg-ink-900 text-bone-50/70 text-xs">
@@ -55,7 +56,7 @@ const href = (hash: string) => `${base}/${hash}`;
 
 <nav class="sticky top-0 z-40 bg-bone-50/95 backdrop-blur-md border-b border-bone-200">
   <div class="max-w-[1400px] mx-auto px-8 py-5 flex items-center justify-between">
-    <a href={base === '' ? '/' : base} class="inline-flex items-center" aria-label="Efendiler Grup">
+    <a href={href('')} class="inline-flex items-center" aria-label="Efendiler Grup">
       <img
         src="/logo-mark.png"
         alt="Efendiler Group Cotton"

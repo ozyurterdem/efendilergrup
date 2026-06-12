@@ -1,5 +1,6 @@
 ---
 import { useTranslations, type Locale } from '~/i18n';
+import { localizedHref } from '~/i18n/utils';
 
 export interface Props {
   locale: Locale;
@@ -8,8 +9,7 @@ export interface Props {
 const { locale } = Astro.props;
 const t = useTranslations(locale);
 
-const base = locale === 'tr' ? '' : `/${locale}`;
-const href = (hash: string) => `${base}/${hash}`;
+const href = (path: string) => localizedHref(locale, path);
 
 const productLinks = t('footer.nav_products') as unknown as string[];
 const companyLinks = t('footer.nav_company') as unknown as string[];
@@ -22,10 +22,10 @@ const companyHrefs = [
 ];
 
 const productHrefs = [
-  `${href('urunler')}#cat-cotton`,
-  `${href('urunler')}#cat-cotton-waste`,
-  `${href('urunler')}#cat-yarn-waste`,
-  `${href('urunler')}#cat-fiber-other`,
+  href('urunler#cat-cotton'),
+  href('urunler#cat-cotton-waste'),
+  href('urunler#cat-yarn-waste'),
+  href('urunler#cat-fiber-other'),
 ];
 
 const year = new Date().getFullYear();
