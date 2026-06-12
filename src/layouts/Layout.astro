@@ -14,7 +14,8 @@ const { title, description, locale, ogImage, canonicalUrl } = Astro.props;
 
 const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? 'https://efendilergrup.com';
 const pathname = Astro.url.pathname;
-const canonical = canonicalUrl ?? `${siteUrl}${pathname === '/' ? '' : pathname}`;
+// trailingSlash:'always' → ana sayfa dahil her canonical slash'lı (pathname zaten '/' veya '/x/')
+const canonical = canonicalUrl ?? `${siteUrl}${pathname}`;
 const ogImageFull = ogImage
   ? (ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`)
   : `${siteUrl}/og-default.jpg`;
